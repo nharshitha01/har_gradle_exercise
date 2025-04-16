@@ -1,0 +1,27 @@
+plugins {
+    id 'application'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.8.1'
+}
+
+task copyWebsite(type: Copy) {
+    from 'src/main/resources/website'
+    into 'docs'
+}
+tasks.named('run'){
+    dependsOn 'copyWebsite'
+}
+application {
+    mainClass = 'org.example.Main'
+}
+jar {
+    manifest {
+        attributes 'Main-Class': 'org.example.Main'  // This tells Java where to start execution
+    }
+}
